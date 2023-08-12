@@ -1,21 +1,14 @@
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import { ArrowRightOutlined } from '@ant-design/icons';
-
 import { GoogleAuth } from "../../components/shared";
+import logo from '../../assets/logo.jpg';
 
 const SignUp = () => {
     return (
         <section className="w-full h-[70vh] sm:h-screen flex justify-center items-center">
             <div className="w-full sm:w-[400px] bg-white p-5 rounded-md mx-4 shadow-sm">
-                <Row align='middle' gutter={4}>
-                    <Col>
-                        <img src="" alt="Logo" />
-                    </Col>
-                    <Col>
-                        <h3>Logo</h3>
-                    </Col>
-                </Row>
+                <img className="w-12" src={logo} alt="Logo" />
                 <Row justify="space-between" align='middle'>
                     <Col>
                         <h4 className="text-base font-semibold sm:text-lg mb-3">Sign Up</h4>

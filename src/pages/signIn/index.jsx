@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { GoogleAuth } from "../../components/shared";
 import ForgetPasswordModal from "./ForgetPasswordModal";
 
+import logo from '../../assets/logo.jpg';
+
 const SignIn = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
@@ -28,14 +30,7 @@ const SignIn = () => {
     return (
         <section className="w-full h-[70vh] sm:h-screen flex justify-center items-center">
             <div className="w-full sm:w-[400px] bg-white p-5 rounded-md mx-4 shadow-sm">
-                <Row align='middle' gutter={4}>
-                    <Col>
-                        <img src="" alt="Logo" />
-                    </Col>
-                    <Col>
-                        <h3>Logo</h3>
-                    </Col>
-                </Row>
+                <img className="w-12" src={logo} alt="Logo" />
                 <h4 className="text-base font-semibold sm:text-lg mb-3">Login</h4>
                 <form>
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="email" placeholder="Email" />
