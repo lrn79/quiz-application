@@ -22,9 +22,6 @@ const ResultProgress = () => {
             </div>
 
         </section>
-
-
-
     );
 };
 
