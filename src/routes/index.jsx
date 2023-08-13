@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/rootLayout';
-import { Home, SignIn, SignUp, NotFound } from '../pages';
+import { Home, SignIn, SignUp, NotFound, TestExam, Result, Exercises, ResultProgress } from '../pages';
 
 
 const routes = createBrowserRouter([
@@ -11,7 +11,23 @@ const routes = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
-            }
+            },
+            {
+                path: '/test-exam',
+                element: <TestExam />,
+            },
+            {
+                path: '/exercises',
+                element: <Exercises />,
+            },
+            {
+                path: '/result',
+                element: <Result />,
+            },
+            {
+                path: '/result/:id',
+                element: <ResultProgress />,
+            },
         ],
     },
     {
