@@ -1,14 +1,32 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Col, Dropdown, Row, Space } from "antd";
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/app-logo.png';
 import CustomLink from "./CustomLink";
+import { signOut } from 'firebase/auth';
+import { auth } from '../../libs/firebase';
+import { setUser } from '../../redux/features/user/userSlice';
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.user);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        console.log('Logout');
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            dispatch(setUser(null));
+        });
+    };
+
 
     const items = [
         {
             key: '1',
-            label: <Button block className="mx-auto">Sign Out</Button>
+            label: <Button onClick={handleLogout} block className="mx-auto">Sign Out</Button>
         }
     ]
 
@@ -26,7 +44,7 @@ const Navbar = () => {
                     </div>
                 </Col>
                 <Col>
-                    <Dropdown
+                    {user?.email ? <Dropdown
                         menu={{
                             items,
                         }}
@@ -39,6 +57,8 @@ const Navbar = () => {
                             </Space>
                         </a>
                     </Dropdown>
+                        :
+                        <Button className="font-semibold text-sm" type="primary" onClick={() => navigate('/sign-in')}>SignIn</Button>}
                 </Col>
             </Row>
         </nav>
