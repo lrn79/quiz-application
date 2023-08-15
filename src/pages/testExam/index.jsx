@@ -1,9 +1,24 @@
-import { Button, Checkbox, Tree } from 'antd';
+import { Button, Checkbox } from 'antd';
 import logo from '../../assets/logo.jpg';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const TestExam = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate();
+
+    const handleCurrentPage = () => {
+        setCurrentPage(prevState => prevState + 1)
+    }
+
+    const handleGenerateCode = (data) => {
+        setCurrentPage(prevState => prevState + 1)
+    }
+
     return (
         <section className="w-full flex justify-center items-center mt-20">
             <div className="w-full sm:w-[700px] bg-white p-5 rounded-md mx-4 shadow-sm">
@@ -11,7 +26,7 @@ const TestExam = () => {
                     <img className='w-10' src={logo} alt="logo" />
                 </div>
                 <div>
-                    {false &&
+                    {1 === currentPage &&
                         <div className='text-center'>
                             <h1 className='text-base sm:text-[20px] font-semibold'>Welcome to the taxi driver sample test</h1>
                             <p className='my-2 text-sm sm:text-base'>
@@ -21,7 +36,7 @@ const TestExam = () => {
                             <Checkbox className='text-base' onChange={() => ''}>with exam instructions</Checkbox>
                         </div>
                     }
-                    {false &&
+                    {2 === currentPage &&
                         <div className='text-center'>
                             <h1 className='text-base sm:text-[20px] font-semibold'>PROCEDURE OF THE EDP PRELIMINARY TEST:</h1>
                             <Checkbox className='text-base my-2' onChange={() => ''}>BLOCK 1: LOCAL KNOWLEDGE (addresses + pictures + routes)</Checkbox>
@@ -32,7 +47,7 @@ const TestExam = () => {
                         </div>
                     }
 
-                    {false &&
+                    {3 === currentPage &&
                         <div className='flex justify-between flex-col sm:flex-row items-center  sm:items-start gap-4 text-center'>
                             <div className='w-1/2'>
                                 <img className='w-24 sm:w-36' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYPRAbTxfmdV_jIUYxjbtjz1iv8gqDsv4Jsg&usqp=CAU" alt="exam-image" />
@@ -46,7 +61,7 @@ const TestExam = () => {
                             </div>
                         </div>
                     }
-                    {false &&
+                    {4 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>REGISTRATION:</h1>
                             <p className='text-base font-normal'>Documents for a first-time exam registration:
@@ -60,7 +75,7 @@ const TestExam = () => {
                             </p>
                         </div>
                     }
-                    {false &&
+                    {5 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>EXAMINATION PROCEDURE:</h1>
                             <div className='flex justify-between flex-col sm:flex-row mb-2 text-base text-base'>
@@ -78,7 +93,7 @@ const TestExam = () => {
                             </div>
                         </div>
                     }
-                    {false &&
+                    {6 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>EXAMINATION PROCEDURE:</h1>
                             <div className='flex justify-between flex-col sm:flex-row mb-2 text-base'>
@@ -94,7 +109,7 @@ const TestExam = () => {
                             </div>
                         </div>
                     }
-                    {false &&
+                    {7 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>EXAM INSTRUCTION</h1>
                             <div className='flex justify-between flex-col sm:flex-row  text-base gap-4'>
@@ -106,16 +121,23 @@ const TestExam = () => {
                                     <p className='font-normal'>Name : Mohammad Shariful</p>
                                     <p className='font-normal'>Your code : <span className='font-bold'>C9A538</span></p>
                                 </div>
-                                <div className='w-full sm:w-1/2'>
+                                <form className='w-full sm:w-1/2' onSubmit={handleSubmit(handleGenerateCode)}>
                                     <h5 className='text-base font-semibold mb-3'>Here the candidate has to type in his code at the beginning of the exam.A brief exam briefing follows.</h5>
                                     <div className='w-full  bg-[#f8f8f8] p-4 flex justify-center items-center h-[100px] rounded-sm'>
-                                        <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] border-0" type="text" placeholder="please enter your code" />
+
+                                        <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] border-0" type="text" placeholder="please enter your code"
+                                            {...register('generateCode', { required: 'Code is required' })}
+                                        />
                                     </div>
-                                </div>
+                                    {errors?.generateCode && <p className="w-full text-center text-sm text-red-500 mt-1">{errors?.generateCode?.message}</p>}
+                                    <div className='text-end mt-2'>
+                                        <Button type='primary' htmlType='submit'>Next</Button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     }
-                    {false &&
+                    {8 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>EXAM INSTRUCTION</h1>
                             <p className='font-normal'>Dear candidate!</p>
@@ -126,11 +148,11 @@ const TestExam = () => {
                                 be used.</p>
                             <p className='font-normal'>By clicking "I accept" you accept the above terms.</p>
                             <div className='text-end'>
-                                <Button type='primary'>I accept</Button>
+                                <Button type='primary' htmlType='button' onClick={() => setCurrentPage(prevState => prevState + 1)}>I accept</Button>
                             </div>
                         </div>
                     }
-                    {true &&
+                    {9 === currentPage &&
                         <div className=''>
                             <h1 className='text-base sm:text-[20px] font-semibold text-center mb-2'>EXAM INSTRUCTION</h1>
                             <p className='font-normal'>You can see the time progress at the top right. When the time has elapsed, the test will
@@ -141,14 +163,15 @@ const TestExam = () => {
                             <p className='font-normal'>By clicking "Start Test" you accept the above conditions
                                 and the test will start.</p>
                             <div className='text-end'>
-                                <Button type='primary'>Start Test</Button>
+                                <Button type='primary' onClick={() => navigate('/exercise/new-exercise')}>Start Test</Button>
                             </div>
                         </div>
                     }
-
                 </div>
-                <div className='text-end'>
-                    <Button type='primary'>Next</Button>
+                <div style={{
+                    display: [7, 8, 9].includes(currentPage) ? 'none' : 'block'
+                }} className='text-end'>
+                    <Button htmlType='button' onClick={handleCurrentPage} type='primary'>Next</Button>
                 </div>
             </div>
         </section>
