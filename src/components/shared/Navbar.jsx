@@ -22,7 +22,7 @@ const Navbar = () => {
 
 
     return (
-        <nav className="w-full h-auto px-3 py-3 bg-blue-500 text-white sticky top-0 left-0 right-0">
+        <nav className="w-full h-auto px-3 py-3 bg-blue-500 text-white sticky top-0 left-0 right-0 z-50">
             <Row justify='space-between' align='middle'>
                 <Col className="flex justify-center items-center">
                     <img className="inline-block w-8 h-auto" src={logo} alt="logo" />

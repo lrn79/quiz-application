@@ -57,7 +57,7 @@ const SignUp = () => {
                     <Row justify='space-between' align='middle' gutter={16}>
                         <Col span={12}>
                             <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="text" placeholder="First Name"
-                                {...register('firstName')}
+                                {...register('firstName', { required: 'First Name is required' })}
                             />
                         </Col>
                         <Col span={12}>
