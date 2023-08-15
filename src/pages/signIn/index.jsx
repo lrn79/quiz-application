@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Checkbox, Col, Row, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { GoogleAuth } from "../../components/shared";
+import { GoogleAuth, Loading } from "../../components/shared";
 import ForgetPasswordModal from "./ForgetPasswordModal";
-import { loginUser } from '../../redux/features/user/userSlice';
-
 import logo from '../../assets/logo.jpg';
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../libs/firebase";
 
 
 const SignIn = () => {
@@ -15,32 +14,26 @@ const SignIn = () => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
-
-    const { user, isLoading } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
 
 
     useEffect(() => {
-        if (user.email && !isLoading) {
-            navigate('/');
+        if (user) {
+            navigate(from, { replace: true });
         }
-    }, [user?.email]);
+    }, [user, navigate, from]);
 
 
-    const loginUserHandler = (data) => {
-        console.log(data);
-        dispatch(loginUser({ email: data.email, password: data.password }));
+    const loginUserHandler = ({ email, password }) => {
+        // console.log(data);
+        signInWithEmailAndPassword(email, password);
     };
-
-
-
-
-
-
-
-
 
 
 
@@ -79,7 +72,8 @@ const SignIn = () => {
                     />
                     {errors?.password && <p>{errors?.password?.message}</p>}
 
-                    <Button className="font-semibold" block type="primary" htmlType="submit">Sign In</Button>
+                    <Button loading={loading} className="font-semibold" block type="primary" htmlType="submit">Sign In</Button>
+                    {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error.message}</p>}
                 </form>
                 <Row className="my-4 font-semibold" justify="space-between" align='middle'>
                     <Col span={12}> <Checkbox>Remember Me</Checkbox></Col>

@@ -1,32 +1,22 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Col, Dropdown, Row, Space } from "antd";
-import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/app-logo.png';
 import CustomLink from "./CustomLink";
-import { signOut } from 'firebase/auth';
+import { signOut } from "firebase/auth";
 import { auth } from '../../libs/firebase';
-import { setUser } from '../../redux/features/user/userSlice';
 import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-    const { user } = useSelector(state => state.user);
+    const [user] = useAuthState(auth);
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-        console.log('Logout');
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            dispatch(setUser(null));
-        });
-    };
 
 
     const items = [
         {
             key: '1',
-            label: <Button onClick={handleLogout} block className="mx-auto">Sign Out</Button>
+            label: <Button onClick={() => signOut(auth)} block className="mx-auto">Sign Out</Button>
         }
     ]
 
@@ -44,7 +34,7 @@ const Navbar = () => {
                     </div>
                 </Col>
                 <Col>
-                    {user?.email ? <Dropdown
+                    {user ? <Dropdown
                         menu={{
                             items,
                         }}
@@ -52,7 +42,7 @@ const Navbar = () => {
                     >
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                <h4 className="font-semibold text-white text-sm sm:text-base">Mohammad Shariful</h4>
+                                <h4 className="font-semibold text-white text-sm sm:text-base">{user?.displayName || ''}</h4>
                                 <DownOutlined className="text-white" />
                             </Space>
                         </a>

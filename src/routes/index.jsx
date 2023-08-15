@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/rootLayout';
 import { Home, SignIn, SignUp, NotFound, TestExam, Result, Exercises, ResultProgress, ExerciseQuiz } from '../pages';
+import RequireAuth from './RequireAuth';
 
 
 const routes = createBrowserRouter([
     {
         path: '/',
-        element: <RootLayout />,
+        element: <RequireAuth><RootLayout /></RequireAuth>,
         children: [
             {
                 index: true,
@@ -32,18 +33,20 @@ const routes = createBrowserRouter([
                 path: '/result/:id',
                 element: <ResultProgress />,
             },
-        ],
-    },
-    {
-        path: '/dashboard',
-        element: <p>Dashboard</p>,
-        children: [
             {
-                index: true,
-                element: <p>dashboard page</p>,
-            }
+                path: '/dashboard',
+                element: <p>Dashboard</p>,
+                children: [
+                    {
+                        index: true,
+                        element: <p>dashboard page</p>,
+                    }
+                ],
+            },
         ],
+
     },
+
     {
         path: '/sign-in',
         element: <SignIn />,
