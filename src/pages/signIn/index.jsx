@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { GoogleAuth, Loading } from "../../components/shared";
 import ForgetPasswordModal from "./ForgetPasswordModal";
 import logo from '../../assets/logo.jpg';
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../libs/firebase";
 
 
@@ -15,12 +15,11 @@ const SignIn = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-
-
 
 
     useEffect(() => {
@@ -38,19 +37,21 @@ const SignIn = () => {
 
 
 
-    const forgetPasswordResetHandler = async () => {
-        messageApi.success({
-            type: 'success',
-            content: 'Email sent',
-            duration: 1.5,
-        });
+    const forgetPasswordResetHandler = async ({ email }) => {
+        const result = await sendPasswordResetEmail(email);
+        if (result) {
+            messageApi.success({
+                type: 'success',
+                content: 'Email sent',
+                duration: 1.5,
+            });
 
-        new Promise(() => {
-            setTimeout(() => {
-                setModalOpen(false);
-            }, 1500);
-        })
-
+            new Promise(() => {
+                setTimeout(() => {
+                    setModalOpen(false);
+                }, 1500);
+            })
+        }
     }
 
 
@@ -65,7 +66,7 @@ const SignIn = () => {
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="email" placeholder="Email"
                         {...register('email', { required: 'Email is required' })}
                     />
-                    {errors?.email && <p>{errors?.email?.message}</p>}
+                    {errors?.email && <p className="w-full text-center text-sm text-red-500 mt-1">{errors?.email?.message}</p>}
 
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="password" placeholder="Password"
                         {...register('password', { required: 'Password is required' })}
@@ -73,7 +74,7 @@ const SignIn = () => {
                     {errors?.password && <p className="w-full text-center text-sm text-red-500 mt-1">{errors?.password?.message}</p>}
 
                     <Button loading={loading} className="font-semibold" block type="primary" htmlType="submit">Sign In</Button>
-                    {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error.message}</p>}
+                    {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error?.message?.split(':')[1]}</p>}
                 </form>
                 <Row className="my-4 font-semibold" justify="space-between" align='middle'>
                     <Col span={12}> <Checkbox>Remember Me</Checkbox></Col>
@@ -84,7 +85,7 @@ const SignIn = () => {
                 <GoogleAuth />
                 <Button block type="link" className="cursor-default text-black" ><span className="text-black">Don't have an account? </span> <Link replace to='/sign-up'>Sign Up !</Link></Button>
             </div>
-            <ForgetPasswordModal openModal={modalOpen} resetHandler={forgetPasswordResetHandler} resetCancel={() => setModalOpen(false)} />
+            <ForgetPasswordModal openModal={modalOpen} resetHandler={forgetPasswordResetHandler} resetCancel={() => setModalOpen(false)} sending={sending} resetError={resetError} />
             {contextHolder}
         </section>
     );

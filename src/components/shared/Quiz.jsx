@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Progress, Radio, Space } from 'antd';
 import logo from '../../assets/logo.jpg';
 
@@ -34,13 +34,24 @@ const Quiz = () => {
             }
         ]
     }
-
+    const [timeInSeconds, setTimeInSeconds] = useState(1 * 60);
     const [myQuiz, setMyQuiz] = useState(allQuiz)
     const [percent, setPercent] = useState(0);
     const [currentQuiz, setCurrentQuiz] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [score, setScore] = useState(0);
 
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (timeInSeconds > 0) {
+                setTimeInSeconds(prevTime => prevTime - 1);
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [timeInSeconds]);
 
 
     const increase = () => {
@@ -77,6 +88,13 @@ const Quiz = () => {
     }
 
 
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    };
+
+
 
     return (
         <>
@@ -101,10 +119,10 @@ const Quiz = () => {
                             <img className='w-40 sm:w-48 h-auto inline-block' src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg?w=2000" alt="logo" />
                         }
                     </div>
-                    <h2 className='bg-blue-500 text-base text-white px-3 py-1 rounded-md shadow-sm w-16  font-semibold '>18:46</h2>
+                    <h2 className='bg-blue-500 text-base text-white px-3 py-1 rounded-md shadow-sm w-16  font-semibold '>{formatTime(timeInSeconds)}</h2>
                 </div>
                 <div className='text-end'>
-                    <Button disabled={!currentQuiz} onClick={nextQuizHandler} type='primary'>{myQuiz.quizList.length === (currentIndex + 1) ? 'Submit' : 'Next'}</Button>
+                    <Button disabled={!currentQuiz || !timeInSeconds} onClick={nextQuizHandler} type='primary'>{myQuiz.quizList.length === (currentIndex + 1) ? 'Submit' : 'Next'}</Button>
                 </div>
             </form>
         </>

@@ -83,7 +83,7 @@ const SignUp = () => {
                     {errorMessage && <p className="w-full text-sm text-red-500">{errorMessage}</p>}
 
                     <Button loading={loading || updating} className="font-semibold" block type="primary" htmlType="submit">Sign Up</Button>
-                    {error && <p className="w-full text-center text-sm text-red-500 my-1">{error.message}</p>}
+                    {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error?.message?.split(':')[1]}</p>}
                 </form>
                 <p className="text-sm font-normal mt-2 text-center sm:text-justify">By signing up I agree to the <Link to='/'>Privacy Policy</Link> and <Link to='/'>Terms of Service</Link>.</p>
                 <GoogleAuth />
