@@ -1,5 +1,5 @@
 export { default as Home } from './home';
-export * as Dashboard from './dashboard';
+export { default as Dashboard } from './dashboard';
 export { default as TestExam } from './testExam';
 export { default as Exercises } from './exercise';
 export { default as ExerciseQuiz } from './exercise/ExerciseQuiz';

@@ -66,15 +66,15 @@ const SignIn = () => {
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="email" placeholder="Email"
                         {...register('email', { required: 'Email is required' })}
                     />
-                    {errors?.email && <p className="w-full text-center text-sm text-red-500 mt-1">{errors?.email?.message}</p>}
+                    {errors?.email && <p className="w-full text-sm text-red-500 my-1">{errors?.email?.message}</p>}
 
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="password" placeholder="Password"
                         {...register('password', { required: 'Password is required' })}
                     />
-                    {errors?.password && <p className="w-full text-center text-sm text-red-500 mt-1">{errors?.password?.message}</p>}
+                    {errors?.password && <p className="w-full text-sm text-red-500 my-1">{errors?.password?.message}</p>}
 
                     <Button loading={loading} className="font-semibold" block type="primary" htmlType="submit">Sign In</Button>
-                    {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error?.message?.split(':')[1]}</p>}
+                    {error && <p className="w-full text-sm text-red-500 mt-1">{error?.message?.split(':')[1]}</p>}
                 </form>
                 <Row className="my-4 font-semibold" justify="space-between" align='middle'>
                     <Col span={12}> <Checkbox>Remember Me</Checkbox></Col>

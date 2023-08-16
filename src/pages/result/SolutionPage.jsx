@@ -1,9 +1,14 @@
-import { Radio, Space } from "antd";
-import { useState } from "react";
+import { Divider, Radio, Space } from "antd";
 
 const SolutionPage = () => {
-    const allQuiz = {
+    const myQuiz = {
         blockName: 'Address',
+        status: 'passed',
+        queryInfo: 'A total of 34 questions.',
+        requiredInfo: 'You must answer at least 23 questions correctly.',
+        score: 0,
+        time: 6,
+        percentage: 75,
         quizList: [
             {
                 question: "what's your name?",
@@ -32,17 +37,20 @@ const SolutionPage = () => {
         ]
     }
 
-    const [myQuiz, setMyQuiz] = useState(allQuiz)
 
 
     return (
         <section className="w-full flex justify-center items-center mt-20">
             <div className="w-full sm:w-[700px] px-4">
+                <h2 className="font-semibold text-lg sm:text-xl">Results</h2>
+                <p className="mt-2 text-base font-normal">Labor Law - {myQuiz.status}</p>
+                <Divider className="my-3" />
+
                 {myQuiz.quizList.map((quiz, index) =>
                     <div key={index} className='w-full flex justify-between items-center flex-col-reverse sm:flex-row gap-4 mb-4  p-5 rounded-md shadow-sm bg-white'>
                         <div className='w-full'>
                             <h4 className='font-normal text-base mb-1'> {index + 1}) {myQuiz.quizList[index].question}</h4>
-                            <Radio.Group value={myQuiz.quizList[index].correct}>
+                            <Radio.Group value={myQuiz.quizList[index].selectedAnswer}>
                                 <Space direction="vertical">
                                     {myQuiz.quizList[index].questionList.map((item, childIndex) =>
                                         <Radio key={childIndex} value={item}>{item}</Radio>)}

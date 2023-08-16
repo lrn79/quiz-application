@@ -25,7 +25,7 @@ const SignUp = () => {
 
 
 
-    const createNewUserHandler = async ({ firstName, email, password, confirmPassword }) => {
+    const createNewUserHandler = async ({ firstName = 'Mr/Mrs.', email, password, confirmPassword }) => {
         if (password === confirmPassword) {
             setErrorMessage(null)
             await createUserWithEmailAndPassword(email, password);
@@ -57,7 +57,7 @@ const SignUp = () => {
                     <Row justify='space-between' align='middle' gutter={16}>
                         <Col span={12}>
                             <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="text" placeholder="First Name"
-                                {...register('firstName', { required: 'First Name is required' })}
+                                {...register('firstName')}
                             />
                         </Col>
                         <Col span={12}>
@@ -69,18 +69,18 @@ const SignUp = () => {
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="email" placeholder="Email"
                         {...register('email', { required: 'Email is required' })}
                     />
-                    {errors.email && <p className="w-full text-sm text-red-500">{errors.email.message}</p>}
+                    {errors.email && <p className="w-full text-sm text-red-500 mb-1">{errors.email.message}</p>}
 
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="password" placeholder="Password"
                         {...register('password', { required: 'Password is required' })}
                     />
-                    {errors.password && <p className="w-full text-sm text-red-500">{errors.password.message}</p>}
+                    {errors.password && <p className="w-full text-sm text-red-500 mb-1">{errors.password.message}</p>}
 
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="password" placeholder="Confirm Password"
                         {...register('confirmPassword', { required: 'confirmPassword is required' })}
                     />
-                    {errors.confirmPassword && <p className="w-full text-sm text-red-500">{errors.confirmPassword.message}</p>}
-                    {errorMessage && <p className="w-full text-sm text-red-500">{errorMessage}</p>}
+                    {errors.confirmPassword && <p className="w-full text-sm text-red-500 mb-1">{errors.confirmPassword.message}</p>}
+                    {errorMessage && <p className="w-full text-sm text-red-500 mb-1">{errorMessage}</p>}
 
                     <Button loading={loading || updating} className="font-semibold" block type="primary" htmlType="submit">Sign Up</Button>
                     {error && <p className="w-full text-center text-sm text-red-500 mt-1">{error?.message?.split(':')[1]}</p>}
