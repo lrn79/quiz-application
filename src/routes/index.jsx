@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from '../layouts/rootLayout';
-import { Home, SignIn, SignUp, NotFound, TestExam, Result, Exercises, ResultProgress, ExerciseQuiz } from '../pages';
+import { Home, SignIn, SignUp, NotFound, TestExam, Result, Exercises, ResultProgress, ExerciseQuiz, SolutionPage } from '../pages';
 import RequireAuth from './RequireAuth';
 
 
@@ -32,6 +32,10 @@ const routes = createBrowserRouter([
             {
                 path: '/result/:id',
                 element: <ResultProgress />,
+            },
+            {
+                path: '/result/solution/:id',
+                element: <SolutionPage />,
             },
             {
                 path: '/dashboard',
