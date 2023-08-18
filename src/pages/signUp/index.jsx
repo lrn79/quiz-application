@@ -41,7 +41,7 @@ const SignUp = () => {
     return (
         <section className="w-full h-[70vh] sm:h-screen flex justify-center items-center">
             <div className="w-full sm:w-[400px] bg-white p-5 rounded-md mx-4 shadow-sm">
-                <img className="w-12" src={logo} alt="Logo" />
+                <img className="w-12 block mx-auto" src={logo} alt="Logo" />
                 <Row justify="space-between" align='middle'>
                     <Col>
                         <h4 className="text-base font-semibold sm:text-lg mb-3">Sign Up</h4>

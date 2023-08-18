@@ -60,7 +60,7 @@ const SignIn = () => {
     return (
         <section className="w-full h-[70vh] sm:h-screen flex justify-center items-center">
             <div className="w-full sm:w-[400px] bg-white p-5 rounded-md mx-4 shadow-sm">
-                <img className="w-12" src={logo} alt="Logo" />
+                <img className="w-12 block mx-auto" src={logo} alt="Logo" />
                 <h4 className="text-base font-semibold sm:text-lg mb-3">Login</h4>
                 <form onSubmit={handleSubmit(loginUserHandler)}>
                     <input className="block w-full px-2 py-2 focus:outline-none rounded-[4px] mb-3 border-0 bg-gray-100 placeholder-gray-500" type="email" placeholder="Email"
