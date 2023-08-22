@@ -29,6 +29,10 @@ const routes = createBrowserRouter([
                 path: '/result',
                 element: <Result />,
             },
+            // {
+            //     path: '/dashlay',
+            //     element: <DashboardLayout />,
+            // },
             {
                 path: '/result/:id',
                 element: <ResultProgress />,

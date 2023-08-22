@@ -36,6 +36,7 @@ const Navbar = () => {
                         <CustomLink to='/test-exam'>Test</CustomLink>
                         <CustomLink to='/exercises'>Exercises</CustomLink>
                         <CustomLink to='/result'>Results</CustomLink>
+                        <CustomLink to='/dashlay'>Dashboard</CustomLink>
                     </div>
                     <div className={`sm:hidden ${show ? 'block' : 'hidden'}`}>
                         <div className=" w-[300px] top-0 left-[-12px] bg-blue-500 absolute flex flex-col items-center space-y-6 p-4 h-screen mt-[44px] transition-all">

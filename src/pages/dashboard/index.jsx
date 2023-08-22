@@ -21,7 +21,7 @@ const Dashboard = () => {
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div>
-                    <h1>Hello world</h1>
+                    <h1>Dashboard</h1>
                 </div>
                 <Menu
                     theme="light"
@@ -31,12 +31,12 @@ const Dashboard = () => {
                         {
                             key: '1',
                             icon: <UserOutlined />,
-                            label: 'nav 1',
+                            label: 'Student Detail',
                         },
                         {
                             key: '2',
                             icon: <VideoCameraOutlined />,
-                            label: 'nav 2',
+                            label: 'Add questions',
                         },
                         {
                             key: '3',
@@ -60,7 +60,7 @@ const Dashboard = () => {
                     />
                 </Header>
                 <Content>
-                    <Outlet />
+                    
                 </Content>
             </Layout>
         </Layout>
